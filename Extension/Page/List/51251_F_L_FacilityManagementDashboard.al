@@ -1,0 +1,32 @@
+pageextension 51251 "Facility Dashboard" extends "Business Manager Role Center"
+{
+    actions
+    {
+        addfirst(sections)
+        {
+            group(Action43)
+            {
+                Caption = 'Facility Management';
+                action(OEMMaster)
+                {
+                    Caption = 'OEM Master';
+                    ApplicationArea = Basic, Suite;
+                    RunObject = Page "OEM Master List";
+                }
+                action(EquipmentMaster)
+                {
+                    Caption = 'Equipment Master';
+                    ApplicationArea = Basic, Suite;
+                    RunObject = Page "Equipment Master List";
+                }
+                action(PartsMaster)
+                {
+                    Caption = 'Parts Master';
+                    ApplicationArea = Basic, Suite;
+                    RunObject = Page "Parts Master List";
+                }
+
+            }
+        }
+    }
+}
