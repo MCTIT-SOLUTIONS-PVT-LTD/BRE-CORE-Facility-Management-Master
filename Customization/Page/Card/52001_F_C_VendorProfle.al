@@ -190,7 +190,7 @@ page 52001 "Vendor Profile Card"
             {
                 ApplicationArea = All;
             }
-
+            //////////////////////////////////////////////////////////////// FACILITY FIELDS///////////////////////////////////////////////////////////
             group("Vendor Statutory registration and license Details")
             {
                 group("Trade License")
@@ -273,12 +273,12 @@ page 52001 "Vendor Profile Card"
                     ApplicationArea = All;
                     Caption = 'Designation';
                 }
-                field("Mobile No."; Rec."Mobile No.")
+                field("Profile Mobile No."; Rec."Profile Mobile No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Mobile No.';
                 }
-                field("Nationality"; Rec."Nationality")
+                field("Profile Nationality"; Rec."Profile Nationality")
                 {
                     ApplicationArea = All;
                     Caption = 'Nationality';
@@ -315,6 +315,7 @@ page 52001 "Vendor Profile Card"
                 }
 
             }
+            ///////////////////////////////////////////////////////// FACILITY FIELDS///////////////////////////////////////////////////////////
         }
     }
 }
