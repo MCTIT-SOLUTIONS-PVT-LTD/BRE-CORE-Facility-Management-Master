@@ -315,7 +315,51 @@ page 52001 "Vendor Profile Card"
                 }
 
             }
-            ///////////////////////////////////////////////////////// FACILITY FIELDS///////////////////////////////////////////////////////////
+
+            group("Bank Details")
+            {
+                Caption = 'Bank Details';
+                // Visible = IsFacilityVendor;
+                field("Bank Account No."; Rec."Bank Account No.") { ApplicationArea = All; }
+                field("Account Name"; Rec."Account Name") { ApplicationArea = All; }
+                field("Bank Name"; Rec."Bank Name") { ApplicationArea = All; }
+                field("Bank Branch"; Rec."Bank Branch") { ApplicationArea = All; }
+                field("IBAN"; Rec."IBAN") { ApplicationArea = All; }
+                field("SWIFT Code"; Rec."SWIFT Code") { ApplicationArea = All; }
+                field("Bank Info Verified"; Rec."Bank Info Verified") { ApplicationArea = All; }
+                field("Verification Date"; Rec."Verification Date") { ApplicationArea = All; }
+ 
+                field("IBAN Certificate"; Rec."IBAN Certificate")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    DrillDown = true;
+                    trigger OnDrillDown()
+                    var
+                        azureBlobUploader: Codeunit "Azure AD Blob Storage";
+                        fileName: Text;
+                        uploadResult: Text;
+                        folderName: Text;
+                    begin
+                        folderName := 'IBANCertificates';
+                        fileName := azureBlobUploader.ValidateDocument(uploadResult, folderName);
+                        if fileName <> '' then begin
+                            // Rec."Upload Document" := fileName;
+                            Rec."IBAN Certificate" := uploadResult;
+                            Rec.Modify();
+                            Message('File uploaded successfully: %1', fileName);
+                        end;
+                    end;
+                }
+ 
+                field("Vendor Module Type"; Rec."Vendor Module Type")
+                {
+                    ApplicationArea = All;
+                }
+            }
+
+            ///////////////////////////////////////////////////////// FACILITY FIELDS//////////////////////////////////////////////////////////     
+
         }
     }
 }
