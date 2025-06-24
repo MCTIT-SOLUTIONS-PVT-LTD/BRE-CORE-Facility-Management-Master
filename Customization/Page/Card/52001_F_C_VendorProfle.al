@@ -328,7 +328,7 @@ page 52001 "Vendor Profile Card"
                 field("SWIFT Code"; Rec."SWIFT Code") { ApplicationArea = All; }
                 field("Bank Info Verified"; Rec."Bank Info Verified") { ApplicationArea = All; }
                 field("Verification Date"; Rec."Verification Date") { ApplicationArea = All; }
- 
+
                 field("IBAN Certificate"; Rec."IBAN Certificate")
                 {
                     ApplicationArea = All;
@@ -351,11 +351,7 @@ page 52001 "Vendor Profile Card"
                         end;
                     end;
                 }
- 
-                field("Vendor Module Type"; Rec."Vendor Module Type")
-                {
-                    ApplicationArea = All;
-                }
+
             }
 
             ///////////////////////////////////////////////////////// FACILITY FIELDS//////////////////////////////////////////////////////////     
