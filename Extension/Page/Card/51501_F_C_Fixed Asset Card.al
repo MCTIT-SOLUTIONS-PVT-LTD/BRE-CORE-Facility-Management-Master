@@ -91,7 +91,19 @@ pageextension 51501 "Fixed Asset Card" extends "Fixed Asset Card"
         {
             group("Barcode Information")
             {
-                field("Barcode ID"; Rec."Barcode ID") { ApplicationArea = All; }
+                field("Barcode ID"; Rec."Barcode ID")
+                {
+                    ApplicationArea = All;
+                    // trigger OnValidate()
+                    // var
+                    //     Asset: Record "Fixed Asset";
+                    // begin
+                    //     if Asset.Get(Rec."Barcode ID") then
+                    //         PAGE.Run(PAGE::"Fixed Asset Card", Asset)
+                    //     else
+                    //         Error('Asset with this Barcode ID was not found.');
+                    // end;
+                }
                 field("Barcode Type"; Rec."Barcode Type")
                 {
                     ApplicationArea = All;
@@ -103,13 +115,16 @@ pageextension 51501 "Fixed Asset Card" extends "Fixed Asset Card"
                 {
                     ApplicationArea = All;
                     ShowCaption = false;
+                    ToolTip = 'Displays the barcode image for this asset.';
                 }
             }
+
         }
     }
 
     actions
     {
+
         // Add changes to page actions here
         addlast(processing)
         {
