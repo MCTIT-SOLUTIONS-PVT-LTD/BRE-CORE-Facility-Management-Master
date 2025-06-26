@@ -4,6 +4,7 @@ page 51255 "Equipment Category Card"
     SourceTable = "Equipment Category";
     ApplicationArea = All;
     Caption = 'Equipment Category';
+    DataCaptionFields = "ID";
     layout
     {
         area(content)

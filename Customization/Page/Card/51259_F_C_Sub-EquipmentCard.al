@@ -4,6 +4,7 @@ page 51259 "Sub-Equipment Card"
     SourceTable = "Sub-Equipment";
     ApplicationArea = All;
     Caption = 'Sub Equipment';
+    DataCaptionFields = "Sub-Equipment ID";
     layout
     {
         area(content)
@@ -26,6 +27,18 @@ page 51259 "Sub-Equipment Card"
                 {
                     ApplicationArea = All;
                 }
+                field("Equipment ID"; Rec."Equipment ID")
+                {
+                    ApplicationArea = All;
+                    NotBlank = true;
+                    ShowMandatory = true;
+                }
+                field("Equipment Name"; Rec."Equipment Name")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
                 field("Critical Component"; Rec."Critical Component")
                 {
                     ApplicationArea = All;

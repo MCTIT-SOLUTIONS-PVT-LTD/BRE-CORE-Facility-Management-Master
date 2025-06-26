@@ -4,6 +4,8 @@ page 51251 "Equipment Master Card"
     SourceTable = "Equipment Master";
     ApplicationArea = All;
     Caption = 'Equipment Master';
+    DataCaptionFields = "Equipment ID";
+
     layout
     {
         area(content)
@@ -26,35 +28,7 @@ page 51251 "Equipment Master Card"
                 {
                     ApplicationArea = All;
                 }
-                field("Sub Equipment"; Rec."Sub Equipment")
-                {
-                    ApplicationArea = All;
-                    ShowMandatory = true;
-                    NotBlank = true;
-                    trigger OnLookup(var Text: Text): Boolean
-                    var
-                        SubEquipment: Record "Sub-Equipment";
-                        SubEquipmentList: Page "Sub-Equipment List";
-                    begin
-                        // Set the lookup page to show dropdown style
-                        SubEquipmentList.LookupMode(true);
-                        SubEquipmentList.SetRecord(SubEquipment);
 
-                        // If current value exists, position on that record
-                        if Rec."Equipment Category" <> '' then begin
-                            SubEquipment.SetRange("Sub-Equipment Name", Rec."Sub Equipment");
-                            if SubEquipment.FindFirst() then
-                                SubEquipmentList.SetRecord(SubEquipment);
-                        end;
-
-                        if SubEquipmentList.RunModal() = Action::LookupOK then begin
-                            SubEquipmentList.GetRecord(SubEquipment);
-                            Text := SubEquipment."Sub-Equipment Name";
-                            exit(true);
-                        end;
-                        exit(false);
-                    end;
-                }
             }
             group("OEM Details")
             {
