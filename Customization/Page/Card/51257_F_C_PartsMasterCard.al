@@ -4,6 +4,7 @@ page 51257 "Parts Master Card"
     SourceTable = "Parts Master";
     ApplicationArea = All;
     Caption = 'Parts Master';
+    DataCaptionFields = "Part ID";
     layout
     {
         area(content)

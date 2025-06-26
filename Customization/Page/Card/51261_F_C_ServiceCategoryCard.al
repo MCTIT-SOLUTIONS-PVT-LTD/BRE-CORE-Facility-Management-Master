@@ -4,6 +4,7 @@ page 51261 "Service Category Card"
     SourceTable = "Service Category Master";
     ApplicationArea = All;
     Caption = 'Service Category';
+    DataCaptionFields = "Service Category ID";
     layout
     {
         area(Content)

@@ -4,6 +4,7 @@ page 51253 "OEM Master Card"
     SourceTable = "OEM Master";
     ApplicationArea = All;
     Caption = 'OEM Master';
+    DataCaptionFields = "OEM ID";
 
     layout
     {

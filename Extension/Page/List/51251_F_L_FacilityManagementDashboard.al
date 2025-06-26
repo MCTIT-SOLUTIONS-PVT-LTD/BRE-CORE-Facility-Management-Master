@@ -19,11 +19,23 @@ pageextension 51251 "Facility Dashboard" extends "Business Manager Role Center"
                     ApplicationArea = Basic, Suite;
                     RunObject = Page "Equipment Master List";
                 }
+                action(SubEquipmentMaster)
+                {
+                    Caption = 'Sub Equipment Master';
+                    ApplicationArea = Basic, Suite;
+                    RunObject = Page "Sub-Equipment List";
+                }
                 action(PartsMaster)
                 {
                     Caption = 'Parts Master';
                     ApplicationArea = Basic, Suite;
                     RunObject = Page "Parts Master List";
+                }
+                action(AssetMaster)
+                {
+                    Caption = 'Asset Master';
+                    ApplicationArea = Basic, Suite;
+                    RunObject = Page "Fixed Asset List";
                 }
 
             }

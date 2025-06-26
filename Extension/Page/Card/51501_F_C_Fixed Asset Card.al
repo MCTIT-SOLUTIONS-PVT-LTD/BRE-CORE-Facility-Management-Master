@@ -2,6 +2,17 @@ pageextension 51501 "Fixed Asset Card" extends "Fixed Asset Card"
 {
     layout
     {
+        modify("No.")
+        {
+            Visible = false;
+        }
+        addbefore(Description)
+        {
+            field("Asset ID"; Rec."Asset ID")
+            {
+                ApplicationArea = All;
+            }
+        }
         // Add changes to page layout here
         addlast(Content)
         {
