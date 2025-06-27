@@ -75,6 +75,20 @@ page 51501 "FM Service Request Card"
                 }
             }
 
+            part("Asset Information "; "Service Request Asset SubPage")
+            {
+                ApplicationArea = All;
+                Caption = 'Asset Information';
+                SubPageLink = "Service Request ID" = field("Service Request ID");
+                UpdatePropagation = Both;
+            }
+            part(InspectionHistory; "Service Request Info SubPage")
+            {
+                SubPageLink = "Asset ID" = FIELD("Asset ID");
+                ApplicationArea = All;
+            }
+
+
         }
     }
 
