@@ -92,7 +92,51 @@ page 51501 "FM Service Request Card"
                 Caption = 'Maintenance History';
                 SubPageLink = "Work Order ID" = field("Assigned Work Order ID");
             }
+            field("Approval Action"; Rec."Approval Action")
+            {
+                ApplicationArea = All;
+                trigger OnValidate()
+                var
+                    ContactLog: Record "FM Service Request Approval";
+                begin
+                    case Rec."Approval Action" of
 
+                        Rec."Approval Action"::"Send for Approval":
+                            begin
+                                Rec."Approval Status" := Rec."Approval Status"::Pending;
+
+                                // Log to Contact Log Table
+                                ContactLog.Init();
+                                ContactLog."Status" := ContactLog."Status"::Pending;
+                                ContactLog."Service Request ID" := Rec."Service Request ID";
+                                ContactLog."Contact Name" := Rec."Contact Name";
+                                ContactLog."Contact Phone" := Rec."Contact Phone";
+                                ContactLog."Contact Email" := Rec."Contact Email";
+                                ContactLog.Insert();
+
+                                Message('Approval request sent and logged.');
+                            end;
+
+                        Rec."Approval Action"::Approved:
+                            begin
+                                Rec."Approval Status" := Rec."Approval Status"::Approved;
+                                Rec."Approved By" := UserId;
+                                Rec."Approved Date" := CurrentDateTime();
+
+                                // Optionally update existing entry or log again
+                                Message('Approved successfully.');
+                            end;
+
+                        Rec."Approval Action"::Rejected:
+                            begin
+                                Rec."Approval Status" := Rec."Approval Status"::Rejected;
+                                Message('Request rejected.');
+                            end;
+                    end;
+
+                    Rec.Modify();
+                end;
+            }
 
         }
     }
