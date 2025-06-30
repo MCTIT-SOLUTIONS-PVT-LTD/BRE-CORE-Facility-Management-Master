@@ -37,6 +37,12 @@ pageextension 51251 "Facility Dashboard" extends "Business Manager Role Center"
                     ApplicationArea = Basic, Suite;
                     RunObject = Page "Fixed Asset List";
                 }
+                action(ServceRequestMaster)
+                {
+                    Caption = 'Service Request Master';
+                    ApplicationArea = Basic, Suite;
+                    RunObject = Page "FM Service Request List";
+                }
 
             }
         }
