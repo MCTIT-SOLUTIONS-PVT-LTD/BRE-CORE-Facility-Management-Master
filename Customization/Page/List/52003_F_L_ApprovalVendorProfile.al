@@ -97,6 +97,7 @@ page 52003 "Approval Vendor Profile List"
                 var
                     VendorProfile: Record "Facility Vendor Profiles";
                     approvalstatus: Enum "Approval Status Enum";
+                    approvalrequest: Codeunit "Approval Vendor Profile";
                 begin
                     if Rec.Status = Rec.Status::Approved then
                         Error('This entry is already approved');
@@ -110,6 +111,7 @@ page 52003 "Approval Vendor Profile List"
                         if VendorProfile.Get(Rec."Profile ID") then begin
                             VendorProfile.Status := approvalstatus::Approved;
                             VendorProfile.Modify();
+                            approvalrequest.Approvalrequest(Rec);
                         end;
 
                         Message('Entry has been approved successfully!');
@@ -130,6 +132,7 @@ page 52003 "Approval Vendor Profile List"
                 var
                     VendorProfile: Record "Facility Vendor Profiles";
                     approvalstatus: Enum "Approval Status Enum";
+                    approvalrequest: Codeunit "Approval Vendor Profile";
                 begin
                     if Rec.Status = Rec.Status::Rejected then
                         Error('This entry is already rejected');
@@ -141,8 +144,9 @@ page 52003 "Approval Vendor Profile List"
 
                         // Update Credit Note record
                         if VendorProfile.Get(Rec."Profile ID") then begin
-                            VendorProfile.Status := approvalstatus::Approved;
+                            VendorProfile.Status := approvalstatus::Rejected;
                             VendorProfile.Modify();
+                            approvalrequest.Rejectrequest(Rec);
                         end;
                         Message('Entry has been rejected successfully!');
                     end;
