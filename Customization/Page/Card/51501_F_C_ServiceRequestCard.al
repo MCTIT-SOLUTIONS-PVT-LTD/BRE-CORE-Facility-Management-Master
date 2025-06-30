@@ -1,9 +1,8 @@
 page 51501 "FM Service Request Card"
 {
     PageType = Card;
-    ApplicationArea = All;
-    UsageCategory = Administration;
     SourceTable = "FM Service Request Header";
+    ApplicationArea = All;
     Caption = 'Service Request Details';
 
     layout
@@ -20,12 +19,12 @@ page 51501 "FM Service Request Card"
                 field("Request Status"; Rec."Request Status")
                 {
                     ApplicationArea = All;
-                    Editable = false;
+                    // Editable = false;
                 }
                 field("Requested Date"; Rec."Requested Date")
                 {
                     ApplicationArea = All;
-                    Editable = false;
+                    // Editable = false;
                 }
             }
             group("Contact Details")
@@ -87,36 +86,27 @@ page 51501 "FM Service Request Card"
                 SubPageLink = "Asset ID" = FIELD("Asset ID");
                 ApplicationArea = All;
             }
-
-
-        }
-    }
-
-    actions
-    {
-        area(Processing)
-        {
-            action(ActionName)
+            part("Maintenance History"; ServiceReqMaintenanceSubPage)
             {
-
-                trigger OnAction()
-                begin
-
-                end;
+                ApplicationArea = All;
+                Caption = 'Maintenance History';
+                SubPageLink = "Work Order ID" = field("Assigned Work Order ID");
             }
+
+
         }
     }
 
-    var
-        myInt: Integer;
+    // var
+    //     myInt: Integer;
 
-    trigger OnInsertRecord(BelowxRec: Boolean): Boolean
-    begin
-        if (Rec."Service Category" = '') or (Rec."Service Sub-Type" = '') or (Rec."Urgency Level" = Rec."Urgency Level"::" ") or
-            (Rec."Contact Name" = '') or (Rec."Contact Phone" = '') or (Rec."Contact Email" = '') then
-            Error('All mandatory fields must be filled before inserting.');
-        exit(true);
-    end;
+    // trigger OnInsertRecord(BelowxRec: Boolean): Boolean
+    // begin
+    //     if (Rec."Service Category" = '') or (Rec."Service Sub-Type" = '') or (Rec."Urgency Level" = Rec."Urgency Level"::" ") or
+    //         (Rec."Contact Name" = '') or (Rec."Contact Phone" = '') or (Rec."Contact Email" = '') then
+    //         Error('All mandatory fields must be filled before inserting.');
+    //     exit(true);
+    // end;
 
 
 }

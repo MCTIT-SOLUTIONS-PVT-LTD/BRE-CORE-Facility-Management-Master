@@ -1,10 +1,11 @@
 page 51502 "FM Service Request List"
 {
     PageType = List;
-    ApplicationArea = All;
-    UsageCategory = Administration;
     SourceTable = "FM Service Request Header";
+    ApplicationArea = All;
     Caption = 'Service Requests';
+    UsageCategory = Lists;
+    CardPageId = 51501;
     layout
     {
         area(Content)
