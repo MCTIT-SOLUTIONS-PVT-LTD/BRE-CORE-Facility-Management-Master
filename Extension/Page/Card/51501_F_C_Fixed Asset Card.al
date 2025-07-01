@@ -11,7 +11,82 @@ pageextension 51501 "Fixed Asset Card" extends "Fixed Asset Card"
             field("Asset ID"; Rec."Asset ID")
             {
                 ApplicationArea = All;
+                Editable = false;
             }
+        }
+        addafter(Description)
+        {
+            field("Asset Name"; Rec."Asset Name")
+            {
+                ApplicationArea = All;
+            }
+            field("Asset Type Code"; Rec."Asset Type Code")
+            {
+                ApplicationArea = All;
+                trigger OnLookup(var Text: Text): Boolean
+                var
+                    AssetType: Record "Asset Type";
+                    AssetTypeList: Page "Asset Type List";
+                begin
+                    AssetTypeList.LookupMode(true);
+                    if AssetTypeList.RunModal() = Action::LookupOK then begin
+                        AssetTypeList.GetRecord(AssetType);
+                        Rec."Asset Type Code" := AssetType.Code;
+                        CurrPage.Update();
+                    end;
+                end;
+            }
+            field("Asset Type Description"; Rec."Asset Type Description")
+            {
+                ApplicationArea = All;
+            }
+            field("Sub-Equipment ID"; Rec."Sub-Equipment ID")
+            {
+                ApplicationArea = All;
+                Lookup = true;
+            }
+            field("Sub-Equipment Name"; Rec."Sub-Equipment Name")
+            {
+                ApplicationArea = All;
+                Lookup = true;
+                Editable = false;
+            }
+            field("Equipment Id"; Rec."Equipment Id")
+            {
+                ApplicationArea = All;
+                Lookup = true;
+                Editable = false;
+            }
+            field("Equipment Name"; Rec."Equipment Name")
+            {
+                ApplicationArea = All;
+                Lookup = true;
+                Editable = false;
+            }
+            field("OEM Id"; Rec."OEM Id")
+            {
+                ApplicationArea = All;
+                Lookup = true;
+            }
+            field("OEM Name"; Rec."OEM Name")
+            {
+                ApplicationArea = All;
+                Lookup = true;
+                Editable = false;
+            }
+            field("Owned By"; Rec."Owned By")
+            {
+                ApplicationArea = All;
+            }
+            field("Additional Note"; Rec."Additional Note")
+            {
+                ApplicationArea = All;
+                MultiLine = true;
+            }
+            // field("Upload Image"; Rec."Upload Image")
+            // {
+            //     ApplicationArea = All;
+            // }
         }
         // Add changes to page layout here
         addlast(Content)
