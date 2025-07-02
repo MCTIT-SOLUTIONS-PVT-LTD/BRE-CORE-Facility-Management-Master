@@ -6,6 +6,70 @@ pageextension 51501 "Fixed Asset Card" extends "Fixed Asset Card"
         {
             Visible = false;
         }
+        modify("Depreciation Book")
+        {
+            Visible = false;
+        }
+        modify("Electronic Document")
+        {
+            Visible = false;
+        }
+        modify("Responsible Employee")
+        {
+            Visible = false;
+        }
+        modify("FA Class Code")
+        {
+            Visible = false;
+        }
+        modify("FA Subclass Code")
+        {
+            Visible = false;
+        }
+        modify("FA Location Code")
+        {
+            Visible = false;
+        }
+        modify("Budgeted Asset")
+        {
+            Visible = false;
+        }
+        modify("Serial No.")
+        {
+            Visible = false;
+        }
+        modify("Main Asset/Component")
+        {
+            Visible = false;
+        }
+        modify("Component of Main Asset")
+        {
+            Visible = false;
+        }
+        modify("Search Description")
+        {
+            Visible = false;
+        }
+        modify(Inactive)
+        {
+            Visible = false;
+        }
+        modify(Blocked)
+        {
+            Visible = false;
+        }
+        modify(Acquired)
+        {
+            Visible = false;
+        }
+        modify("Vendor No.")
+        {
+            Visible = false;
+        }
+        modify("Maintenance Vendor No.")
+        {
+            Visible = false;
+        }
         addbefore(Description)
         {
             field("Asset ID"; Rec."Asset ID")
@@ -13,13 +77,13 @@ pageextension 51501 "Fixed Asset Card" extends "Fixed Asset Card"
                 ApplicationArea = All;
                 Editable = false;
             }
-        }
-        addafter(Description)
-        {
             field("Asset Name"; Rec."Asset Name")
             {
                 ApplicationArea = All;
             }
+        }
+        addafter(Description)
+        {
             field("Asset Type Code"; Rec."Asset Type Code")
             {
                 ApplicationArea = All;
@@ -36,10 +100,10 @@ pageextension 51501 "Fixed Asset Card" extends "Fixed Asset Card"
                     end;
                 end;
             }
-            field("Asset Type Description"; Rec."Asset Type Description")
-            {
-                ApplicationArea = All;
-            }
+            // field("Asset Type Description"; Rec."Asset Type Description")
+            // {
+            //     ApplicationArea = All;
+            // }
             field("Sub-Equipment ID"; Rec."Sub-Equipment ID")
             {
                 ApplicationArea = All;
@@ -123,8 +187,16 @@ pageextension 51501 "Fixed Asset Card" extends "Fixed Asset Card"
                 }
                 field("Unit No."; Rec."Unit No.") { ApplicationArea = All; }
                 field("Location Description"; Rec."Location Description") { ApplicationArea = All; }
-                field(Emirate; Rec.Emirate) { ApplicationArea = All; }
-                field(Community; Rec.Community) { ApplicationArea = All; }
+                field(Emirate; Rec.Emirate)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+                field(Community; Rec.Community)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
                 field("Contact Name"; Rec."Contact Name") { ApplicationArea = All; }
                 field("Contact Email"; Rec."Contact Email") { ApplicationArea = All; }
                 field("Contact No."; Rec."Contact No.") { ApplicationArea = All; }
@@ -234,6 +306,33 @@ pageextension 51501 "Fixed Asset Card" extends "Fixed Asset Card"
                 trigger OnAction()
                 begin
                     Report.RunModal(51501, true, false, Rec);
+                end;
+            }
+            action("Display Barcode")
+            {
+                ApplicationArea = All;
+                Caption = 'Display Barcode';
+                Image = BarCode;
+                ToolTip = 'Display barcode for the fixed asset.';
+                trigger OnAction()
+                var
+                    BarcodeString: Text;
+                    Description: Text;
+                    BarcodeSymbology: Enum "Barcode Symbology 2D";
+                    BarcodeImageProvider: Interface "Barcode Image Provider 2D";
+                    EncodedText: Text;
+                    tempBlob: Codeunit "Temp Blob";
+                begin
+
+                    BarcodeImageProvider := Enum::"Barcode Image Provider 2D"::Dynamics2D;
+                    BarcodeSymbology := Enum::"Barcode Symbology 2D"::"QR-Code";
+                    BarcodeString := Rec."No.";
+                    Description := Rec.Description;
+
+                    tempBlob := BarcodeImageProvider.EncodeImage(BarcodeString, BarcodeSymbology);
+                    Rec."Barcode Image".ImportStream(tempBlob.CreateInStream(), '');
+                    Message('Displaying barcode');
+                    Rec.Modify(true);
                 end;
             }
         }

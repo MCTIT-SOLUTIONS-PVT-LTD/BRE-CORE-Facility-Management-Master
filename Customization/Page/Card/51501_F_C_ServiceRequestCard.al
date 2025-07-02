@@ -102,6 +102,12 @@ page 51501 "FM Service Request Card"
                 ApplicationArea = All;
                 SubPageLink = "Service Request ID" = FIELD("Service Request ID");
             }
+            part("Insurance History"; "Service Request Insurance Card")
+            {
+                ApplicationArea = All;
+                Caption = 'Insurance History';
+                SubPageLink = "Policy ID" = field("Asset ID");
+            }
 
             field("Approval Action"; Rec."Approval Action")
             {
