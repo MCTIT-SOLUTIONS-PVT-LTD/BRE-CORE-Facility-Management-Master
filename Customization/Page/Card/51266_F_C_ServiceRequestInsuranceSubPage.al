@@ -11,6 +11,11 @@ page 51266 "Service Request Insurance Card"
         {
             repeater(MaintenanceHistory)
             {
+                field("Service Request ID"; Rec."Service Request ID")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
                 field("Policy ID"; Rec."Policy ID")
                 {
                     ApplicationArea = All;
