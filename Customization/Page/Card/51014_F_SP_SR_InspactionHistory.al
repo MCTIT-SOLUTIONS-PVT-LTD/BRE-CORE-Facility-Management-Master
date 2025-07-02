@@ -11,6 +11,11 @@ page 51014 "Service Request Info SubPage"
         {
             repeater(Group)
             {
+                field("Service Request ID"; Rec."Service Request ID")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
                 field("Inspection ID"; Rec."Inspection ID")
                 {
                     ApplicationArea = All;
@@ -72,6 +77,7 @@ page 51014 "Service Request Info SubPage"
             }
         }
     }
+
 
     trigger OnAfterGetRecord()
     begin

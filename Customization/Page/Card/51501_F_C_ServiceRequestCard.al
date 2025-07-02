@@ -79,19 +79,30 @@ page 51501 "FM Service Request Card"
                 ApplicationArea = All;
                 Caption = 'Asset Information';
                 SubPageLink = "Service Request ID" = field("Service Request ID");
-                UpdatePropagation = Both;
+                // UpdatePropagation = Both;
             }
             part(InspectionHistory; "Service Request Info SubPage")
             {
-                SubPageLink = "Asset ID" = FIELD("Asset ID");
+                // SubPageLink = "Asset ID" = FIELD("Asset ID");
                 ApplicationArea = All;
+                SubPageLink = "Service Request ID" = field("Service Request ID");
+
             }
             part("Maintenance History"; ServiceReqMaintenanceSubPage)
             {
                 ApplicationArea = All;
                 Caption = 'Maintenance History';
-                SubPageLink = "Work Order ID" = field("Assigned Work Order ID");
+                // SubPageLink = "Work Order ID" = field("Assigned Work Order ID");
+                SubPageLink = "Service Request ID" = field("Service Request ID");
+
             }
+            part(Attachments; "FM SR Document SubPage")
+            {
+                Caption = 'Attachments';
+                ApplicationArea = All;
+                SubPageLink = "Service Request ID" = FIELD("Service Request ID");
+            }
+
             field("Approval Action"; Rec."Approval Action")
             {
                 ApplicationArea = All;
@@ -141,16 +152,6 @@ page 51501 "FM Service Request Card"
         }
     }
 
-    // var
-    //     myInt: Integer;
-
-    // trigger OnInsertRecord(BelowxRec: Boolean): Boolean
-    // begin
-    //     if (Rec."Service Category" = '') or (Rec."Service Sub-Type" = '') or (Rec."Urgency Level" = Rec."Urgency Level"::" ") or
-    //         (Rec."Contact Name" = '') or (Rec."Contact Phone" = '') or (Rec."Contact Email" = '') then
-    //         Error('All mandatory fields must be filled before inserting.');
-    //     exit(true);
-    // end;
 
 
 }

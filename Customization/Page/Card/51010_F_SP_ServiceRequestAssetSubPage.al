@@ -12,11 +12,16 @@ page 51010 "Service Request Asset SubPage"
         {
             repeater(Group)
             {
+                field("Service Request ID"; Rec."Service Request ID")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
                 field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Asset ID';
-                   
+
                 }
                 field("Description"; Rec.Description)
                 {
@@ -71,8 +76,8 @@ page 51010 "Service Request Asset SubPage"
         }
     }
 
-    trigger OnOpenPage()
-    begin
-        Rec.SetRecFilter();
-    end;
+    // trigger OnOpenPage()
+    // begin
+    //     Rec.SetRecFilter();
+    // end;
 }

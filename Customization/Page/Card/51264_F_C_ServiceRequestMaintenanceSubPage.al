@@ -11,6 +11,11 @@ page 51264 "ServiceReqMaintenanceSubPage"
         {
             repeater(MaintenanceHistory)
             {
+                field("Service Request ID"; Rec."Service Request ID")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
                 field("Work Order ID"; Rec."Work Order ID")
                 {
                     ApplicationArea = All;
