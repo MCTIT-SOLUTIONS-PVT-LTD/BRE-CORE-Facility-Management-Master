@@ -20,6 +20,39 @@ page 51501 "FM Service Request Card"
                 {
                     ApplicationArea = All;
                     // Editable = false;
+
+                    trigger OnValidate()
+                    var
+                        ApprovalServiceRequest: Record "FM Service Request Approval";
+                        approvalstatus: Enum "FM Request Status";
+                    begin
+                        if Rec."Request Status" = approvalstatus::"Sending Approval" then begin
+                            // Check if approval record already exists
+                            if ApprovalServiceRequest.Get(Rec."Service Request ID") then begin
+                                // Modify existing approval record
+                                ApprovalServiceRequest."Status" := ApprovalServiceRequest."Status"::Pending;
+                                ApprovalServiceRequest."Contact Name" := Rec."Contact Name";
+                                ApprovalServiceRequest."Contact Phone" := Rec."Contact Phone";
+                                ApprovalServiceRequest."Contact Email" := Rec."Contact Email";
+                                ApprovalServiceRequest."Requested Date" := Rec."Requested Date";
+                                Rec."Request Status" := approvalstatus::"Pending Approval";
+                                ApprovalServiceRequest.Modify();
+                                Message('Approval Request modified successfully!');
+                            end else begin
+                                // Insert new approval record
+                                ApprovalServiceRequest.Init();
+                                ApprovalServiceRequest."Service Request ID" := Rec."Service Request ID";
+                                ApprovalServiceRequest."Status" := ApprovalServiceRequest."Status"::Pending;
+                                ApprovalServiceRequest."Contact Name" := Rec."Contact Name";
+                                ApprovalServiceRequest."Contact Phone" := Rec."Contact Phone";
+                                ApprovalServiceRequest."Contact Email" := Rec."Contact Email";
+                                ApprovalServiceRequest."Requested Date" := Rec."Requested Date";
+                                Rec."Request Status" := approvalstatus::"Pending Approval";
+                                ApprovalServiceRequest.Insert(true);
+                                Message('Approval Request sent successfully!');
+                            end;
+                        end;
+                    end;
                 }
                 field("Requested Date"; Rec."Requested Date")
                 {
@@ -139,55 +172,6 @@ page 51501 "FM Service Request Card"
 
             }
 
-            field("Approval Action"; Rec."Approval Action")
-            {
-                ApplicationArea = All;
-                trigger OnValidate()
-                var
-                    ContactLog: Record "FM Service Request Approval";
-                begin
-                    case Rec."Approval Action" of
-
-                        Rec."Approval Action"::"Send for Approval":
-                            begin
-                                Rec."Approval Status" := Rec."Approval Status"::Pending;
-
-                                // Log to Contact Log Table
-                                ContactLog.Init();
-                                ContactLog."Status" := ContactLog."Status"::Pending;
-                                ContactLog."Service Request ID" := Rec."Service Request ID";
-                                ContactLog."Contact Name" := Rec."Contact Name";
-                                ContactLog."Contact Phone" := Rec."Contact Phone";
-                                ContactLog."Contact Email" := Rec."Contact Email";
-                                ContactLog.Insert();
-
-                                Message('Approval request sent and logged.');
-                            end;
-
-                        Rec."Approval Action"::Approved:
-                            begin
-                                Rec."Approval Status" := Rec."Approval Status"::Approved;
-                                Rec."Approved By" := UserId;
-                                Rec."Approved Date" := CurrentDateTime();
-
-                                // Optionally update existing entry or log again
-                                Message('Approved successfully.');
-                            end;
-
-                        Rec."Approval Action"::Rejected:
-                            begin
-                                Rec."Approval Status" := Rec."Approval Status"::Rejected;
-                                Message('Request rejected.');
-                            end;
-                    end;
-
-                    Rec.Modify();
-                end;
-            }
-
         }
     }
-
-
-
 }
