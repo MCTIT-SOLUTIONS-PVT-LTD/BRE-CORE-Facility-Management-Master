@@ -26,6 +26,31 @@ page 51501 "FM Service Request Card"
                     ApplicationArea = All;
                     // Editable = false;
                 }
+                field("Asset ID"; Rec."Asset ID")
+                {
+                    ApplicationArea = All;
+                    // Editable = false;
+                    TableRelation = "Fixed Asset"."No."; // Optional redundancy for clarity
+
+                    trigger OnValidate()
+                    var
+                        LineRec: Record "Service Request Line";
+                    begin
+                        if Rec."Asset ID" = '' then
+                            exit;
+
+                        // Check if already added
+                        LineRec.Reset();
+                        LineRec.SetRange("Service Request ID", Rec."Service Request ID");
+                        LineRec.SetRange("No.", Rec."Asset ID");
+                        if not LineRec.FindFirst() then begin
+                            LineRec.Init();
+                            LineRec."Service Request ID" := Rec."Service Request ID";
+                            LineRec."No." := Rec."Asset ID";
+                            LineRec.Insert(true);
+                        end;
+                    end;
+                }
             }
             group("Contact Details")
             {
@@ -85,7 +110,8 @@ page 51501 "FM Service Request Card"
             {
                 // SubPageLink = "Asset ID" = FIELD("Asset ID");
                 ApplicationArea = All;
-                SubPageLink = "Service Request ID" = field("Service Request ID");
+                SubPageLink = "Service Request ID" = field("Service Request ID"),
+                 "Asset ID" = FIELD("Asset ID");
 
             }
             part("Maintenance History"; ServiceReqMaintenanceSubPage)
@@ -93,7 +119,8 @@ page 51501 "FM Service Request Card"
                 ApplicationArea = All;
                 Caption = 'Maintenance History';
                 // SubPageLink = "Work Order ID" = field("Assigned Work Order ID");
-                SubPageLink = "Service Request ID" = field("Service Request ID");
+                SubPageLink = "Service Request ID" = field("Service Request ID"),
+                 "Asset ID" = FIELD("Asset ID");
 
             }
             part(Attachments; "FM SR Document SubPage")
@@ -107,7 +134,8 @@ page 51501 "FM Service Request Card"
                 ApplicationArea = All;
                 Caption = 'Insurance History';
                 // SubPageLink = "Policy ID" = field("Asset ID");
-                SubPageLink = "Service Request ID" = FIELD("Service Request ID");
+                SubPageLink = "Service Request ID" = FIELD("Service Request ID"),
+                 "Asset ID" = FIELD("Asset ID");
 
             }
 
