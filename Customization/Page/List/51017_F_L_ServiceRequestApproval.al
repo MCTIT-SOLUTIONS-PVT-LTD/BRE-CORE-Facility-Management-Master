@@ -47,7 +47,7 @@ page 51017 "Service Request Approval List"
                 trigger OnAction()
                 var
                     servicerequest: Record "FM Service Request Header";
-                    approvalstatus: Enum "Approval Status Enum";
+                    approvalstatus: Enum "FM Request Status";
                     sendrequest: Codeunit "Service Request Approval";
                 begin
                     if Rec.Status = Rec.Status::Approved then
@@ -60,7 +60,7 @@ page 51017 "Service Request Approval List"
 
                         // Update main record status
                         if servicerequest.Get(Rec."Service Request ID") then begin
-                            servicerequest."Approval Action" := servicerequest."Approval Action"::Approved;
+                            servicerequest."Request Status" := approvalstatus::Approved;
                             servicerequest.Modify();
                             sendrequest.Approvalservicerequest(Rec);
                         end;
@@ -82,7 +82,7 @@ page 51017 "Service Request Approval List"
                 trigger OnAction()
                 var
                     servicerequest: Record "FM Service Request Header";
-                    approvalstatus: Enum "Approval Status Enum";
+                    approvalstatus: Enum "FM Request Status";
                     sendrequest: Codeunit "Service Request Approval";
                 begin
                     if Rec.Status = Rec.Status::Rejected then
@@ -95,7 +95,7 @@ page 51017 "Service Request Approval List"
 
                         // Update Credit Note record
                         if servicerequest.Get(Rec."Service Request ID") then begin
-                            servicerequest."Approval Action" := servicerequest."Approval Action"::Rejected;
+                            servicerequest."Request Status" := approvalstatus::Rejected;
                             servicerequest.Modify();
                             sendrequest.Rejectservicerequest(Rec);
                         end;
@@ -104,6 +104,5 @@ page 51017 "Service Request Approval List"
                 end;
             }
         }
-
     }
 }
