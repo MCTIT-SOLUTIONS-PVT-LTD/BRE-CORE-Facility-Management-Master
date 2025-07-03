@@ -2,10 +2,10 @@ pageextension 51501 "Fixed Asset Card" extends "Fixed Asset Card"
 {
     layout
     {
-        modify("No.")
-        {
-            Visible = false;
-        }
+        // modify("No.")
+        // {
+        //     Visible = true;
+        // }
         modify("Depreciation Book")
         {
             Visible = false;
@@ -72,11 +72,11 @@ pageextension 51501 "Fixed Asset Card" extends "Fixed Asset Card"
         }
         addbefore(Description)
         {
-            field("Asset ID"; Rec."Asset ID")
-            {
-                ApplicationArea = All;
-                Editable = false;
-            }
+            // field("Asset ID"; Rec."Asset ID")
+            // {
+            //     ApplicationArea = All;
+            //     Editable = false;
+            // }
             field("Asset Name"; Rec."Asset Name")
             {
                 ApplicationArea = All;
@@ -265,6 +265,7 @@ pageextension 51501 "Fixed Asset Card" extends "Fixed Asset Card"
                 field("Barcode Type"; Rec."Barcode Type")
                 {
                     ApplicationArea = All;
+                    Visible = false;
 
                 }
                 field("Barcode Generated?"; Rec."Barcode Generated?") { ApplicationArea = All; Editable = false; }
