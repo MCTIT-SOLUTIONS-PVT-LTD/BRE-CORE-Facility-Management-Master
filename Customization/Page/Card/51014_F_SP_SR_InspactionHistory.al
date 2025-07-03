@@ -23,7 +23,12 @@ page 51014 "Service Request Info SubPage"
                     Caption = 'Inspection ID';
                     ToolTip = 'View the full inspection record';
                 }
-
+                field("Asset ID"; Rec."Asset ID")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Asset ID';
+                    // TableRelation = "Fixed Asset"."No.";
+                }
                 field("Inspection Date"; Rec."Inspection Date")
                 {
                     ApplicationArea = All;
@@ -77,6 +82,15 @@ page 51014 "Service Request Info SubPage"
             }
         }
     }
+
+    trigger OnNewRecord(BelowxRec: Boolean)
+    begin
+        if Rec."Service Request ID" = '' then
+            Rec.Validate("Service Request ID", xRec."Service Request ID");
+
+        if Rec."Asset ID" = '' then
+            Rec.Validate("Asset ID", xRec."Asset ID");
+    end;
 
 
     trigger OnAfterGetRecord()

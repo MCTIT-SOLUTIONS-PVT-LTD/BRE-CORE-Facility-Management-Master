@@ -88,4 +88,12 @@ page 51264 "ServiceReqMaintenanceSubPage"
             }
         }
     }
+    trigger OnNewRecord(BelowxRec: Boolean)
+    begin
+        if Rec."Service Request ID" = '' then
+            Rec.Validate("Service Request ID", xRec."Service Request ID");
+
+        if Rec."Asset ID" = '' then
+            Rec.Validate("Asset ID", xRec."Asset ID");
+    end;
 }
