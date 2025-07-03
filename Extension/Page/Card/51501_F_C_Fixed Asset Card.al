@@ -80,6 +80,8 @@ pageextension 51501 "Fixed Asset Card" extends "Fixed Asset Card"
             field("Asset Name"; Rec."Asset Name")
             {
                 ApplicationArea = All;
+                NotBlank = true;
+                ShowMandatory = true;
             }
         }
         addafter(Description)
@@ -87,6 +89,8 @@ pageextension 51501 "Fixed Asset Card" extends "Fixed Asset Card"
             field("Asset Type Code"; Rec."Asset Type Code")
             {
                 ApplicationArea = All;
+                NotBlank = true;
+                ShowMandatory = true;
                 trigger OnLookup(var Text: Text): Boolean
                 var
                     AssetType: Record "Asset Type";
@@ -108,6 +112,8 @@ pageextension 51501 "Fixed Asset Card" extends "Fixed Asset Card"
             {
                 ApplicationArea = All;
                 Lookup = true;
+                NotBlank = true;
+                ShowMandatory = true;
             }
             field("Sub-Equipment Name"; Rec."Sub-Equipment Name")
             {
@@ -131,6 +137,8 @@ pageextension 51501 "Fixed Asset Card" extends "Fixed Asset Card"
             {
                 ApplicationArea = All;
                 Lookup = true;
+                NotBlank = true;
+                ShowMandatory = true;
             }
             field("OEM Name"; Rec."OEM Name")
             {

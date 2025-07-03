@@ -28,11 +28,11 @@ report 51501 "Asset Barcode Report"
             var
                 BarcodeString: Text;
                 Description: Text;
-                BarcodeSymbology: Enum "Barcode Symbology";
-                BarcodeFontProvider: Interface "Barcode Font Provider";
+                BarcodeSymbology: Enum "Barcode Symbology 2D";
+                BarcodeFontProvider: Interface "Barcode Font Provider 2D";
             begin
-                BarcodeFontProvider := Enum::"Barcode Font Provider"::IDAutomation1D;
-                BarcodeSymbology := Enum::"Barcode Symbology"::Code128;
+                BarcodeFontProvider := Enum::"Barcode Font Provider 2D"::IDAutomation2D;
+                BarcodeSymbology := Enum::"Barcode Symbology 2D"::"QR-Code";
                 BarcodeString := "Barcode ID";
                 Description := FixedAsset.Description;
                 EncodedText := BarcodeFontProvider.EncodeFont(BarcodeString, BarcodeSymbology);
