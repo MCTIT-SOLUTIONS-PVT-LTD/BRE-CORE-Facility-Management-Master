@@ -139,6 +139,7 @@ pageextension 51501 "Fixed Asset Card" extends "Fixed Asset Card"
                 Lookup = true;
                 NotBlank = true;
                 ShowMandatory = true;
+                Editable = false;
             }
             field("OEM Name"; Rec."OEM Name")
             {
@@ -193,8 +194,14 @@ pageextension 51501 "Fixed Asset Card" extends "Fixed Asset Card"
                         end;
                     end;
                 }
-                field("Unit No."; Rec."Unit No.") { ApplicationArea = All; }
-                field("Location Description"; Rec."Location Description") { ApplicationArea = All; }
+                field("Unit No."; Rec."Unit No.")
+                {
+                    ApplicationArea = All;
+                }
+                field("Location Description"; Rec."Location Description")
+                {
+                    ApplicationArea = All;
+                }
                 field(Emirate; Rec.Emirate)
                 {
                     ApplicationArea = All;
@@ -205,36 +212,84 @@ pageextension 51501 "Fixed Asset Card" extends "Fixed Asset Card"
                     ApplicationArea = All;
                     Editable = false;
                 }
-                field("Contact Name"; Rec."Contact Name") { ApplicationArea = All; }
-                field("Contact Email"; Rec."Contact Email") { ApplicationArea = All; }
-                field("Contact No."; Rec."Contact No.") { ApplicationArea = All; }
+                field("Contact Name"; Rec."Contact Name")
+                {
+                    ApplicationArea = All;
+                }
+                field("Contact Email"; Rec."Contact Email")
+                {
+                    ApplicationArea = All;
+                }
+                field("Contact No."; Rec."Contact No.")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
         addafter(Insured)
         {
             // Warranty Info
-            field("Purchase Date"; Rec."Purchase Date") { ApplicationArea = All; }
-            field("Warranty Start Date"; Rec."Warranty Start Date") { ApplicationArea = All; }
-            field("Warranty End Date"; Rec."Warranty End Date") { ApplicationArea = All; }
+            field("Purchase Date"; Rec."Purchase Date")
+            {
+                ApplicationArea = All;
+            }
+            field("Warranty Start Date"; Rec."Warranty Start Date")
+            {
+                ApplicationArea = All;
+            }
+            field("Warranty End Date"; Rec."Warranty End Date")
+            {
+                ApplicationArea = All;
+            }
 
             // AMC Info
-            field("Under AMC"; Rec."Under AMC") { ApplicationArea = All; }
-            field("AMC Start Date"; Rec."AMC Start Date") { ApplicationArea = All; }
+            field("Under AMC"; Rec."Under AMC")
+            {
+                ApplicationArea = All;
+                trigger OnValidate()
+                begin
+                    // Clear AMC fields when Under AMC is set to false
+                    if not Rec."Under AMC" then begin
+                        Rec."AMC Start Date" := 0D;
+                        Rec."AMC End Date" := 0D;
+                        Rec."AMC Vendor" := '';
+                    end;
+                end;
+            }
+            field("AMC Start Date"; Rec."AMC Start Date")
+            {
+                ApplicationArea = All;
+                Editable = Rec."Under AMC";
+            }
             field("AMC End Date"; Rec."AMC End Date")
             {
                 ApplicationArea = All;
+                Editable = Rec."Under AMC";
                 trigger OnValidate()
                 begin
                     if Rec."AMC End Date" < Rec."AMC Start Date" then
                         Error('AMC End Date cannot be earlier than AMC Start Date.');
                 end;
             }
-            field("AMC Vendor"; Rec."AMC Vendor") { ApplicationArea = All; }
+            field("AMC Vendor"; Rec."AMC Vendor")
+            {
+                ApplicationArea = All;
+                Editable = Rec."Under AMC";
+            }
 
             // Insurance Info
-            field("Insurance Provider"; Rec."Insurance Provider") { ApplicationArea = All; }
-            field("Insurance Policy No."; Rec."Insurance Policy No.") { ApplicationArea = All; }
-            field("Insurance Start Date"; Rec."Insurance Start Date") { ApplicationArea = All; }
+            field("Insurance Provider"; Rec."Insurance Provider")
+            {
+                ApplicationArea = All;
+            }
+            field("Insurance Policy No."; Rec."Insurance Policy No.")
+            {
+                ApplicationArea = All;
+            }
+            field("Insurance Start Date"; Rec."Insurance Start Date")
+            {
+                ApplicationArea = All;
+            }
             field("Insurance End Date"; Rec."Insurance End Date")
             {
                 ApplicationArea = All;
@@ -244,12 +299,24 @@ pageextension 51501 "Fixed Asset Card" extends "Fixed Asset Card"
                         Error('Insurance End Date cannot be earlier than Insurance Start Date.');
                 end;
             }
-            field("Insured Value"; Rec."Insured Value") { ApplicationArea = All; }
+            field("Insured Value"; Rec."Insured Value")
+            {
+                ApplicationArea = All;
+            }
 
             // Maintenance Plan
-            field("Maintenance Frequency"; Rec."Maintenance Frequency") { ApplicationArea = All; }
-            field("Maintenance Notes"; Rec."Maintenance Notes") { ApplicationArea = All; }
-            field("Previous Service Date"; Rec."Previous Service Date") { ApplicationArea = All; }
+            field("Maintenance Frequency"; Rec."Maintenance Frequency")
+            {
+                ApplicationArea = All;
+            }
+            field("Maintenance Notes"; Rec."Maintenance Notes")
+            {
+                ApplicationArea = All;
+            }
+            field("Previous Service Date"; Rec."Previous Service Date")
+            {
+                ApplicationArea = All;
+            }
             // field("Next Service Date"; Rec."Next Service Date") { ApplicationArea = All; }
         }
 
