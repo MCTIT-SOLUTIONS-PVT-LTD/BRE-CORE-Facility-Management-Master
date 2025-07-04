@@ -322,9 +322,9 @@ pageextension 51501 "Fixed Asset Card" extends "Fixed Asset Card"
 
         addlast(content)
         {
-            group("Barcode Information")
+            group("QR-Code Information")
             {
-                field("Barcode ID"; Rec."Barcode ID")
+                field("QR-Code ID"; Rec."QR-Code ID")
                 {
                     ApplicationArea = All;
                     // trigger OnValidate()
@@ -343,13 +343,13 @@ pageextension 51501 "Fixed Asset Card" extends "Fixed Asset Card"
                     Visible = false;
 
                 }
-                field("Barcode Generated?"; Rec."Barcode Generated?") { ApplicationArea = All; Editable = false; }
+                field("QR-Code Generated?"; Rec."QR-Code Generated?") { ApplicationArea = All; Editable = false; }
 
-                field("Barcode Image"; Rec."Barcode Image")
+                field("QR-Code Image"; Rec."QR-Code Image")
                 {
                     ApplicationArea = All;
                     ShowCaption = false;
-                    ToolTip = 'Displays the barcode image for this asset.';
+                    ToolTip = 'Displays the QR-Code image for this asset.';
                 }
             }
 
@@ -359,37 +359,36 @@ pageextension 51501 "Fixed Asset Card" extends "Fixed Asset Card"
     actions
     {
 
-        // Add changes to page actions here
         addlast(processing)
         {
-            action("Generate Barcode")
+            action("Generate QR-Code")
             {
                 ApplicationArea = All;
-                Caption = 'Generate Barcode';
+                Caption = 'Generate QR-Code';
                 Image = BarCode;
                 trigger OnAction()
                 var
-                    BarcodeGen: Codeunit "Barcode Generator";
+                    QRCodeGen: Codeunit "QR-Code Generator";
                 begin
-                    BarcodeGen.GenerateBarcodeID(Rec);
+                    QRCodeGen.GenerateQR_CodeID(Rec);
                     Rec.Modify(true);
                 end;
             }
-            action(PrintBarcode)
+            action("PrintQR-Code")
             {
-                Caption = 'Print Barcode';
+                Caption = 'Print QR-Code';
                 ApplicationArea = All;
                 trigger OnAction()
                 begin
                     Report.RunModal(51501, true, false, Rec);
                 end;
             }
-            action("Display Barcode")
+            action("Display QR-Code")
             {
                 ApplicationArea = All;
-                Caption = 'Display Barcode';
+                Caption = 'Display QR-Code';
                 Image = BarCode;
-                ToolTip = 'Display barcode for the fixed asset.';
+                ToolTip = 'Display QR-Code for the fixed asset.';
                 trigger OnAction()
                 var
                     BarcodeString: Text;
@@ -406,8 +405,8 @@ pageextension 51501 "Fixed Asset Card" extends "Fixed Asset Card"
                     Description := Rec.Description;
 
                     tempBlob := BarcodeImageProvider.EncodeImage(BarcodeString, BarcodeSymbology);
-                    Rec."Barcode Image".ImportStream(tempBlob.CreateInStream(), '');
-                    Message('Displaying barcode');
+                    Rec."QR-Code Image".ImportStream(tempBlob.CreateInStream(), '');
+                    Message('Displaying QR-Code');
                     Rec.Modify(true);
                 end;
             }
