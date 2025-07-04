@@ -1,26 +1,26 @@
-report 51501 "Asset Barcode Report"
+report 51501 "Asset QR-Code Report"
 {
     ApplicationArea = All;
-    Caption = 'Asset Barcode Report';
+    Caption = 'Asset QR-Code Report';
     UsageCategory = ReportsAndAnalysis;
     DefaultLayout = Word;
-    WordLayout = 'AssetBarcodeReportLayout.docx';
+    WordLayout = 'AssetQR-CodeReportLayout.docx';
 
     dataset
     {
         dataitem(FixedAsset; "Fixed Asset")
         {
-            DataItemTableView = sorting("No.");
+            RequestFilterFields = "No.";
             column(Asset_No; "No.")
             {
             }
             column(Asset_Description; "Description")
             {
             }
-            column(Barcode_ID; "Barcode ID")
+            column(QR_Code_ID; "QR-Code ID")
             {
             }
-            column(Barcode_Image; EncodedText)
+            column(QR_Code_Image; EncodedText)
             {
             }
 
@@ -33,7 +33,7 @@ report 51501 "Asset Barcode Report"
             begin
                 BarcodeFontProvider := Enum::"Barcode Font Provider 2D"::IDAutomation2D;
                 BarcodeSymbology := Enum::"Barcode Symbology 2D"::"QR-Code";
-                BarcodeString := "Barcode ID";
+                BarcodeString := "QR-Code ID";
                 Description := FixedAsset.Description;
                 EncodedText := BarcodeFontProvider.EncodeFont(BarcodeString, BarcodeSymbology);
             end;
