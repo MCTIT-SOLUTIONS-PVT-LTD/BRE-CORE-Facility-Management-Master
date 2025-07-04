@@ -3,7 +3,7 @@
 permissionset 51000 FacilitypermitionSet
 {
     Assignable = true;
-    Permissions = report "Asset Barcode Report" = X,
+    Permissions = report "Asset QR-Code Report" = X,
         page "Equipment Category Card" = X,
         page "Equipment Category List" = X,
         page "Equipment Master Card" = X,
@@ -15,7 +15,7 @@ permissionset 51000 FacilitypermitionSet
         page "OEM Master List" = X,
         page "Parts Master Card" = X,
         page "Parts Master List" = X,
-        page "Scan Asset Barcode Dialog" = X,
+        page "Scan Asset QR-Code Dialog" = X,
         page "Service Category Card" = X,
         page "Service Category List" = X,
         page "Service Request Api" = X,

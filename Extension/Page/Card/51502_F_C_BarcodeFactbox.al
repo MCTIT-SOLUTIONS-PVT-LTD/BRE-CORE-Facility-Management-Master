@@ -1,4 +1,4 @@
-pageextension 51502 "Fixed Asset Barcode FactBox" extends "Doc. Attachment List Factbox"
+pageextension 51502 "Fixed Asset QR-Code FactBox" extends "Doc. Attachment List Factbox"
 {
     layout
     {

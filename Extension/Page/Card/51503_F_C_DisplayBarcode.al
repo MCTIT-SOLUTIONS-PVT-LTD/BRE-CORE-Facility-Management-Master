@@ -1,4 +1,4 @@
-pageextension 51503 "Display Barcode Image" extends "Fixed Asset Picture"
+pageextension 51503 "Display QR-Code Image" extends "Fixed Asset Picture"
 {
     // DataCaptionExpression = Rec."No.";
     layout
@@ -6,11 +6,11 @@ pageextension 51503 "Display Barcode Image" extends "Fixed Asset Picture"
         // Add changes to page layout here
         addafter(Image)
         {
-            field("Barcode Image"; Rec."Barcode Image")
+            field("QR-Code Image"; Rec."QR-Code Image")
             {
                 ApplicationArea = All;
                 ShowCaption = false;
-                ToolTip = 'Displays the barcode image for this asset.';
+                ToolTip = 'Displays the QR-Code image for this asset.';
                 Editable = false;
                 Visible = true;
             }

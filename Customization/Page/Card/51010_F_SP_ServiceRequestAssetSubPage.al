@@ -67,7 +67,7 @@ page 51010 "Service Request Asset SubPage"
                 {
                     ApplicationArea = All;
                 }
-                field("Barcode ID"; Rec."Barcode ID")
+                field("QR-Code ID"; Rec."QR-Code ID")
                 {
                     ApplicationArea = All;
                 }

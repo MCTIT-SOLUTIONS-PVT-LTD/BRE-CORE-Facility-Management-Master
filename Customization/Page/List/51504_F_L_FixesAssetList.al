@@ -9,14 +9,14 @@ pageextension 51504 "Fixed Asset List" extends "Fixed Asset List"
     {
         addlast(Creation)
         {
-            action("Scan Asset Barcode")
+            action("Scan Asset QR-Code")
             {
                 ApplicationArea = All;
-                Caption = 'Scan Asset Barcode';
+                Caption = 'Scan Asset QR-Code';
                 Image = BarCode;
                 trigger OnAction()
                 var
-                    ScanDialog: Page "Scan Asset Barcode Dialog";
+                    ScanDialog: Page "Scan Asset QR-Code Dialog";
                 begin
                     ScanDialog.RunModal();
                 end;

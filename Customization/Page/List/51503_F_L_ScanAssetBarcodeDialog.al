@@ -1,9 +1,9 @@
-page 51503 "Scan Asset Barcode Dialog"
+page 51503 "Scan Asset QR-Code Dialog"
 {
     PageType = StandardDialog;
     ApplicationArea = All;
     UsageCategory = Administration;
-    Caption = 'Scan Asset Barcode';
+    Caption = 'Scan Asset QR-Code';
 
     layout
     {
@@ -11,11 +11,11 @@ page 51503 "Scan Asset Barcode Dialog"
         {
             group(ScanGroup)
             {
-                field("Scan Barcode"; myInt)
+                field("Scan QR-Code"; myInt)
                 {
                     ApplicationArea = All;
                     ExtendedDatatype = Barcode;
-                    ToolTip = 'Scan or enter the asset barcode or Asset ID.';
+                    ToolTip = 'Scan or enter the asset QR-Code or Asset ID.';
                     trigger OnValidate()
                     var
                         Asset: Record "Fixed Asset";
@@ -23,7 +23,7 @@ page 51503 "Scan Asset Barcode Dialog"
                         if Asset.Get(myInt) then
                             PAGE.Run(PAGE::"Fixed Asset Card", Asset)
                         else
-                            Error('Asset with this Barcode ID was not found.');
+                            Error('Asset with this QR-Code ID was not found.');
                     end;
                 }
             }
