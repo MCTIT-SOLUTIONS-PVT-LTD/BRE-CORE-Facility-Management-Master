@@ -10,10 +10,10 @@ pageextension 51501 "Fixed Asset Card" extends "Fixed Asset Card"
         {
             Visible = false;
         }
-        modify("Electronic Document")
-        {
-            Visible = false;
-        }
+        // modify("Electronic Document")
+        // {
+        //     Visible = false;
+        // }
         modify("Responsible Employee")
         {
             Visible = false;
